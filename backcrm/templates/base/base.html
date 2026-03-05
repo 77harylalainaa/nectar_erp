@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+    <div class="container">
+
+        <!-- SIDEBAR -->
+        <nav class="sidebar">
+            <div class="logo">
+                <h2>Nectar<span>Mada</span></h2>
+            </div>
+
+            <ul>
+                <li><a href="{% url 'dashboard_home' %}">TABLEAU DE BORD</a></li>
+                <li><a href="{% url 'catalogue_produits' %}">PRODUITS</a></li>
+                <li><a href="#">CLIENTS</a></li>
+                <li><a href="#">FOURNISSEURS</a></li>
+                <li><a href="#">VENTES</a></li>
+                <li><a href="#">COMMANDES</a></li>
+                <li><a href="#">STOCK</a></li>
+                <li><a href="#">ARCHIVES</a></li>
+            </ul>
+        </nav>
+
+        <!-- CONTENU PRINCIPAL -->
+        <main class="main-content">
+
+            <header>
+                <div class="search-bar">
+                    <input type="text" placeholder="Rechercher ici...">
+                </div>
+            </header>
+
+            <!-- ICI LE CONTENU CHANGE -->
+            <section class="content-body">
+                {% block content %}
+                {% endblock %}
+            </section>
+
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+{% extends "base/base.html" %}
+
+{% block title %}Produits{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/karts.css' %}">
+<link rel="stylesheet" href="{% static 'css/karatra.css' %}">
+<link rel="stylesheet" href="{% static 'css/btn.css' %}">
+
+<div id="produits" class="tab-content">
+    <div class="kotonera">
+        <div class="kart-hedera">
+            <h1>CATALOGUE DES PRODUITS</h1>
+            <button type="submit" class="btn-filtrer">
+                <span class="icon"> Filtrer </span>
+            </button>
+        </div>
+        <div class="kart-kontenty">
+            <div class="karatra">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Réf</th>
+                            <th>Nom</th>
+                            <th>Marque</th>
+                            <th>Catégorie</th>
+                            <th>Prix de vente</th>
+                            <th>Remise</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produit in produits %}
+                        <tr class="ligne-produit"
+                            data-id="{{ produit.id_produit }}"
+                            data-reference="{{ produit.reference }}"
+                            data-nom_produit="{{ produit.nom_produit }}"
+                            data-marque="{{ produit.marque }}"
+                            data-categorie="{{ produit.categorie }}"
+                            data-prix_de_vente="{{ produit.prix_de_vente }}"
+                            data-remise_possible="{{ produit.remise_possible }}"
+                            data-description="{{ produit.description }}"
+                            data-fournisseur="{{ produit.fournisseur }}"
+                            data-prix_d_achat="{{ produit.prix_d_achat }}"
+                            data-statut="{{ produit.statut }}"
+                            data-format="{{ produit.format }}"
+                            data-image_produit="{{ produit.image_produit }}">
+
+                            <td>{{ produit.reference }}</td>
+                            <td>{{ produit.nom_produit }}</td>
+                            <td>{{ produit.marque }}</td>
+                            <td>{{ produit.categorie }}</td>
+                            <td>{{ produit.prix_de_vente }}</td>
+                            <td>{{ produit.remise_possible }}</td>
+                            <td>
+                                <form method="POST"
+                                      action="{% url 'archiver_produit' produit.id_produit %}"
+                                      style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                            class="btn-delete"
+                                            onclick="return confirm('Archiver ce produit ?')">
+                                        ❌
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6">Aucun produit enregistré</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="kart-saidibara">
+            <form method="POST" enctype="multipart/form-data" class="form-produit">
+                {% csrf_token %}
+                <input type="hidden" name="id_produit" id="id_produit">
+                <div class="form-group">
+                    {{ form.reference.label_tag }}
+                    {{ form.reference }}
+                </div>
+                <div class="form-group">
+                    {{ form.nom_produit.label_tag }}
+                    {{ form.nom_produit }}
+                </div>
+                <div class="form-group">
+                    {{ form.categorie.label_tag }}
+                    {{ form.categorie }}
+                </div>
+                <div class="form-group">
+                    {{ form.marque.label_tag }}
+                    {{ form.marque }}
+                </div>
+                <div class="form-group">
+                    {{ form.format.label_tag }}
+                    {{ form.format }}
+                </div>
+                <div class="form-group">
+                    {{ form.fournisseur.label_tag }}
+                    {{ form.fournisseur }}
+                </div>
+                <div class="form-group">
+                    {{ form.prix_d_achat.label_tag }}
+                    {{ form.prix_d_achat }}
+                </div>
+                <div class="form-group">
+                    {{ form.prix_de_vente.label_tag }}
+                    {{ form.prix_de_vente }}
+                </div>
+                <div class="form-group">
+                    {{ form.remise_possible.label_tag }}
+                    {{ form.remise_possible }}
+                </div>
+                <div class="form-group">
+                    {{ form.statut.label_tag }}
+                    {{ form.statut }}
+                </div>
+                <div class="form-group">
+                    {{ form.image_produit.label_tag }}
+                    {{ form.image_produit }}
+                </div>
+                <div class="form-group">
+                    {{ form.description.label_tag }}
+                    {{ form.description }}
+                </div>
+                <div class="btn-divisera">
+                    <button type="reset" class="btn-boot">
+                        <span class="icon"> Boot </span>
+                    </button>
+                    <button type="submit" class="btn-ajouter" id="submit-btn">
+                        <span class="icon"> Ajouter </span>
+                    </button>
+                </div>
+                {{ form.non_field_errors }}
+            </form>
+        </div>
+    </div>
+</div>
+<script src="{% static 'produits/js/affichage.js' %}" defer></script>
+
+{% endblock %}

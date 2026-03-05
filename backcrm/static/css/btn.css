@@ -1,0 +1,71 @@
+.btn-divisera {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5px;
+    padding: 5px;
+}
+
+.btn-ajouter {
+    background-color: #FFCC00;
+}
+
+.btn-boot {
+    background-color: #1e293b;
+    color: white;
+}
+
+.btn-ajouter, .btn-boot {
+    /* Structure et Bordures */
+    border: 2px solid #000000;
+    border-radius: 8px;
+    padding: 12px 24px;
+
+    /* Typographie */
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    /* Animation */
+    transition: all 0.3s ease;
+}
+
+.btn-ajouter:hover {
+    background-color: #e6b800;
+}
+
+.btn-boot:hover {
+    background-color: #334155;
+}
+
+.btn-ajouter:hover, .btn-boot:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Effet au clic */
+.btn-ajouter:active, .btn-boot:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.icon {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* bouton supprimer */
+.btn-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: red;
+    transition: 0.3s;
+}
+
+.btn-delete:hover {
+    transform: scale(1.2);
+    color: darkred;
+}
