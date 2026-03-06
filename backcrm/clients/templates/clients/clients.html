@@ -1,15 +1,139 @@
-{% extends "base/base.html %}
+{% extends "base/base.html" %}
 
 {% block title %}Clients{% endblock %}
 
 {% block content %}
 
 {% load static %}
+<link rel="stylesheet" href="{% static 'css/karts.css' %}">
+<link rel="stylesheet" href="{% static 'css/karatra.css' %}">
+<link rel="stylesheet" href="{% static 'css/btn.css' %}">
 
 <div id="clients" class="tab-content">
-    <div>
-        <h1>LISTE DES CLIENTS</h1>
+    <div class="kotonera">
+        <div class="kart-hedera">
+            <h1>LISTE DES CLIENTS</h1>
+        </div>
+        <div class="kart-kontenty">
+            <div class="karatra">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ref</th>
+                            <th>Genre</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Mail</th>
+                            <th>Phone</th>
+                            <th>Résidence</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for  client in clients %}
+                        <tr class="ligne-client"
+                            data-id="{{ client.id_client }}"
+                            data-ref_client="{{ client.ref_client }}"
+                            data-nom_client="{{ client.nom_client }}"
+                            data-prenom_client="{{ client.prenom_client }}"
+                            data-date_naissance_client="{{ client.date_naissance_client }}"
+                            data-genre_client="{{ client.genre_client }}"
+                            data-email_client="{{ client.email_client }}"
+                            data-telephone_client="{{ client.telephone_client }}"
+                            data-adresse_client="{{ client.adresse_client }}"
+                            data-ville_client="{{ client.ville_client }}"
+                            data-date_inscription="{{ client.date_inscription }}">
+
+                            <td>{{ client.ref_client }}</td>
+                            <td>{{ client.genre_client }}</td>
+                            <td>{{ client.nom_client }}</td>
+                            <td>{{ client.prenom_client }}</td>
+                            <td>{{ client.email_client }}</td>
+                            <td>{{ client.telephone_client }}</td>
+                            <td>{{ client.ville_client }}</td>
+                            <td>
+                                <form method="POST"
+                                      action="{% url 'archiver_client' client.id_client %}"
+                                      style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                            class="btn-delete"
+                                            onclick="return confirm('Archiver ce client ?')">
+                                        ❌
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6">Aucun client enregistré</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="kart-saidibara">
+            <form method="POST" enctype="multipart/form-data" class="form-client">
+                {% csrf_token %}
+                <input type="hidden" name="id_client" id="id_client">
+                <div class="form-group">
+                    {{ form.ref_client.label_tag }}
+                    {{ form.ref_client }}
+                </div>
+                <div class="form-group">
+                    {{ form.nom_client.label_tag }}
+                    {{ form.nom_client }}
+                </div>
+                <div class="form-group">
+                    {{ form.prenom_client.label_tag }}
+                    {{ form.prenom_client }}
+                </div>
+                <div class="form-group">
+                    {{ form.date_naissance_client.label_tag }}
+                    {{ form.date_naissance_client }}
+                </div>
+                <div class="form-group">
+                    {{ form.genre_client.label_tag }}
+                    {{ form.genre_client }}
+                </div>
+                <div class="form-group">
+                    {{ form.email_client.label_tag }}
+                    {{ form.email_client }}
+                </div>
+                <div class="form-group">
+                    {{ form.telephone_client.label_tag }}
+                    {{ form.telephone_client }}
+                </div>
+                <div class="form-group">
+                    {{ form.adresse_client.label_tag }}
+                    {{ form.adresse_client }}
+                </div>
+                <div class="form-group">
+                    {{ form.ville_client.label_tag }}
+                    {{ form.ville_client }}
+                </div>
+                <div class="form-group">
+                    {{ form.statut.label_tag }}
+                    {{ form.statut }}
+                </div>
+                <div class="form-group">
+                    {{ form.etat_client.label_tag }}
+                    {{ form.etat_client }}
+                </div>
+                <div class="btn-divisera">
+                    <button type="reset" class="btn-boot">
+                        <span class="icon"> Boot </span>
+                    </button>
+                    <button type="submit" class="btn-ajouter" id="submit-btn">
+                        <span class="icon"> Ajouter </span>
+                    </button>
+                </div>
+                {{ form.non_field_errors }}
+            </form>
+        </div>
     </div>
 </div>
+<script src="{% static 'produits/js/affichage.js' %}" defer></script>
 
 {% endblock %}
