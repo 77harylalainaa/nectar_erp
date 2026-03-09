@@ -59,6 +59,18 @@ class Produit(models.Model):
         null=True,
     )
 
+    def save(self, *args, **kwargs):
+        if not self.reference:
+            dernier_produit = Produit.objects.order_by('-id_produit').first()
+            if dernier_produit and dernier_produit.reference:
+                numero = ''.join(filter(str.isdigit, dernier_produit.reference))
+                dernier_numero = int(numero) if numero else 0
+                nouveau_numero = dernier_numero + 1
+            else:
+                nouveau_numero = 1
+            self.reference = f"PR{nouveau_numero:04d}"
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.nom_produit} ({self.reference})"
 

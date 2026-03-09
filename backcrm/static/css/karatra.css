@@ -84,3 +84,7 @@ input, select, textarea {
     font-size: 14px;
     transition: 0.3s;
 }
+
+.ligne-produit.active {
+    background-color: #eef3ff;
+}

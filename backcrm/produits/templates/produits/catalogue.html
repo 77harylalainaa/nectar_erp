@@ -33,7 +33,7 @@
                     </thead>
                     <tbody>
                         {% for produit in produits %}
-                        <tr class="ligne-produit"
+                        <tr data-ligne
                             data-id="{{ produit.id_produit }}"
                             data-reference="{{ produit.reference }}"
                             data-nom_produit="{{ produit.nom_produit }}"
@@ -69,7 +69,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="6">Aucun produit enregistré</td>
+                            <td colspan="7">Aucun produit enregistré</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -77,9 +77,9 @@
             </div>
         </div>
         <div class="kart-saidibara">
-            <form method="POST" enctype="multipart/form-data" class="form-produit">
+            <form method="POST" enctype="multipart/form-data" class="form-produit" data-form>
                 {% csrf_token %}
-                <input type="hidden" name="id_produit" id="id_produit">
+                <input type="hidden" name="id_produit" id="id_produit" data-id-field>
                 <div class="form-group">
                     {{ form.reference.label_tag }}
                     {{ form.reference }}
@@ -141,6 +141,5 @@
         </div>
     </div>
 </div>
-<script src="{% static 'produits/js/affichage.js' %}" defer></script>
 
 {% endblock %}

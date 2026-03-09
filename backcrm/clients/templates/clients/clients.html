@@ -10,9 +10,10 @@
 <link rel="stylesheet" href="{% static 'css/btn.css' %}">
 
 <div id="clients" class="tab-content">
-    <div class="kotonera">
+    <div class="kotonera form-open">
         <div class="kart-hedera">
             <h1>LISTE DES CLIENTS</h1>
+            <button type="button" id="btn-add">+</button>
         </div>
         <div class="kart-kontenty">
             <div class="karatra">
@@ -31,12 +32,12 @@
                     </thead>
                     <tbody>
                         {% for  client in clients %}
-                        <tr class="ligne-client"
+                        <tr data-ligne
                             data-id="{{ client.id_client }}"
                             data-ref_client="{{ client.ref_client }}"
                             data-nom_client="{{ client.nom_client }}"
                             data-prenom_client="{{ client.prenom_client }}"
-                            data-date_naissance_client="{{ client.date_naissance_client }}"
+                            data-date_naissance_client="{{ client.date_naissance_client|date:'Y-m-d' }}"
                             data-genre_client="{{ client.genre_client }}"
                             data-email_client="{{ client.email_client }}"
                             data-telephone_client="{{ client.telephone_client }}"
@@ -66,17 +67,17 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="6">Aucun client enregistré</td>
+                            <td colspan="8">Aucun client enregistré</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="kart-saidibara">
-            <form method="POST" enctype="multipart/form-data" class="form-client">
+        <div class="kart-saidibara" id="saidibara-form">
+            <form method="POST" enctype="multipart/form-data" class="form-client" data-form>
                 {% csrf_token %}
-                <input type="hidden" name="id_client" id="id_client">
+                <input type="hidden" name="id_client" id="id_client" data-id-field>
                 <div class="form-group">
                     {{ form.ref_client.label_tag }}
                     {{ form.ref_client }}
@@ -134,6 +135,5 @@
         </div>
     </div>
 </div>
-<script src="{% static 'produits/js/affichage.js' %}" defer></script>
 
 {% endblock %}

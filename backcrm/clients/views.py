@@ -24,16 +24,12 @@ def liste_clients(request):
     })
 
 def modifier_client(request, pk):
-
     client = get_object_or_404(Client, pk=pk)
-
     if request.method == 'POST':
         form = ClientForm(request.POST, instance=client)
-
         if form.is_valid():
             form.save()
             return redirect('liste_clients')
-
     else:
         form = ClientForm(instance=client)
 
