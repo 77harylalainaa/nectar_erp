@@ -27,7 +27,7 @@ class Fournisseur(models.Model):
     type_fournisseur = models.CharField(
         max_length=20,
         choices=TYPE_CHOICES,
-        default='marque'
+        default='matières premières'
     )
     email_fournisseur = models.EmailField(unique=True, blank=True, null=True)
     telephone_fournisseur = models.CharField(max_length=15)
@@ -54,7 +54,7 @@ class Fournisseur(models.Model):
                 nouveau_numero = dernier_numero + 1
             else:
                 nouveau_numero = 1
-            self.ref_fournisseur = f"Fo{nouveau_numero:04d}"
+            self.ref_fournisseur = f"RF{nouveau_numero:04d}"
         super().save(*args, **kwargs)
 
     def __str__(self):

@@ -1,0 +1,145 @@
+{% extends "base/base.html" %}
+
+{% block title %}Fournisseurs{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/karts.css' %}">
+<link rel="stylesheet" href="{% static 'css/karatra.css' %}">
+<link rel="stylesheet" href="{% static 'css/btn.css' %}">
+
+<div id="fournisseurs" class="tab-content">
+    <div class="kotonera">
+        <div class="kart-hedera">
+            <h1>FOURNISSEURS</h1>
+            <div class="header-actions">
+                <button type="button" id="btn-add" class="btn-add">
+                    <span>📋</span>
+                </button>
+                <button type="button" id="btn-close" class="btn-close">
+                    ⭕
+                </button>
+            </div>
+        </div>
+        <div class="kart-kontenty">
+            <div class="karatra">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Réf</th>
+                            <th>Nom</th>
+                            <th>Entreprise</th>
+                            <th>Type</th>
+                            <th>Mail</th>
+                            <th>Phone</th>
+                            <th>Adresse</th>
+                            <th>Paiement par</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for fournisseur in fournisseurs %}
+                        <tr data-ligne
+                            data-id="{{ fournisseur.id_fournisseur }}"
+                            data-ref_fournisseur="{{ fournisseur.ref_fournisseur }}"
+                            data-nom_fournisseur="{{ fournisseur.nom_fournisseur }}"
+                            data-nom_entreprise="{{ fournisseur.nom_entreprise }}"
+                            data-type_fournisseur="{{ fournisseur.type_fournisseur }}"
+                            data-email_fournisseur="{{ fournisseur.email_fournisseur }}"
+                            data-telephone_fournisseur="{{ fournisseur.telephone_fournisseur }}"
+                            data-adresse_fournisseur="{{ fournisseur.adresse_fournisseur }}"
+                            data-ville_fournisseur="{{ fournisseur.ville_fournisseur }}"
+                            data-date_ajout="{{ fournisseur.date_ajout }}"
+                            data-moyen_de_paiement="{{ fournisseur.moyen_de_paiement }}"
+                            data-activite_fournisseur="{{ fournisseur.activite_fournisseur }}">
+
+                            <td>{{ fournisseur.ref_fournisseur }}</td>
+                            <td>{{ fournisseur.nom_fournisseur }}</td>
+                            <td>{{ fournisseur.nom_entreprise }}</td>
+                            <td>{{ fournisseur.type_fournisseur }}</td>
+                            <td>{{ fournisseur.email_fournisseur }}</td>
+                            <td>{{ fournisseur.telephone_fournisseur }}</td>
+                            <td>{{ fournisseur.adresse_fournisseur }}</td>
+                            <td>{{ fournisseur.moyen_de_paiement }}</td>
+                            <td>
+                                <form method="POST"
+                                      action="{% url 'archiver_fournisseur' fournisseur.id_fournisseur %}"
+                                      style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                            class="btn-delete"
+                                            onclick="return confirm('Archiver ce fournisseur ?')">
+                                        ⚔️
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="9">Aucun fournisseur enregistré</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="kart-saidibara">
+            <form method="POST" enctype="multipart/form-data" class="form-fournisseur" data-form>
+                {% csrf_token %}
+                <input type="hidden" name="id_fournisseur" id="id_fournisseur" data-id-field>
+                <div class="form-group">
+                    {{ form.ref_fournisseur.label_tag }}
+                    {{ form.ref_fournisseur }}
+                </div>
+                <div class="form-group">
+                    {{ form.nom_fournisseur.label_tag }}
+                    {{ form.nom_fournisseur }}
+                </div>
+                <div class="form-group">
+                    {{ form.nom_entreprise.label_tag }}
+                    {{ form.nom_entreprise }}
+                </div>
+                <div class="form-group">
+                    {{ form.type_fournisseur.label_tag }}
+                    {{ form.type_fournisseur }}
+                </div>
+                <div class="form-group">
+                    {{ form.email_fournisseur.label_tag }}
+                    {{ form.email_fournisseur }}
+                </div>
+                <div class="form-group">
+                    {{ form.telephone_fournisseur.label_tag }}
+                    {{ form.telephone_fournisseur }}
+                </div>
+                <div class="form-group">
+                    {{ form.adresse_fournisseur.label_tag }}
+                    {{ form.adresse_fournisseur }}
+                </div>
+                <div class="form-group">
+                    {{ form.ville_fournisseur.label_tag }}
+                    {{ form.ville_fournisseur }}
+                </div>
+                <div class="form-group">
+                    {{ form.moyen_de_paiement.label_tag }}
+                    {{ form.moyen_de_paiement }}
+                </div>
+                <div class="form-group">
+                    {{ form.activite_fournisseur.label_tag }}
+                      {{ form.activite_fournisseur }}
+                </div>
+                <div class="btn-divisera">
+                    <button type="reset" class="btn-boot">
+                        <span class="icon"> Boot </span>
+                    </button>
+                    <button type="submit" class="btn-ajouter" id="submit-btn">
+                        <span class="icon"> Ajouter </span>
+                    </button>
+                </div>
+                {{ form.non_field_errors }}
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
