@@ -23,18 +23,6 @@ def liste_clients(request):
         'clients': clients
     })
 
-def modifier_client(request, pk):
-    client = get_object_or_404(Client, pk=pk)
-    if request.method == 'POST':
-        form = ClientForm(request.POST, instance=client)
-        if form.is_valid():
-            form.save()
-            return redirect('liste_clients')
-    else:
-        form = ClientForm(instance=client)
-
-    return render(request, 'clients/modifier_client.html', {'form': form})
-
 def archiver_client(request, pk):
     if request.method == "POST":
         client = get_object_or_404(Client, pk=pk)

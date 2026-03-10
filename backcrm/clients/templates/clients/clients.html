@@ -10,10 +10,17 @@
 <link rel="stylesheet" href="{% static 'css/btn.css' %}">
 
 <div id="clients" class="tab-content">
-    <div class="kotonera form-open">
+    <div class="kotonera">
         <div class="kart-hedera">
             <h1>LISTE DES CLIENTS</h1>
-            <button type="button" id="btn-add">+</button>
+            <div class="header-actions">
+                <button type="button" id="btn-add" class="btn-add">
+                    <span>🧾</span>
+                </button>
+                <button type="button" id="btn-close" class="btn-close">
+                    ❌
+                </button>
+            </div>
         </div>
         <div class="kart-kontenty">
             <div class="karatra">
@@ -60,7 +67,7 @@
                                     <button type="submit"
                                             class="btn-delete"
                                             onclick="return confirm('Archiver ce client ?')">
-                                        ❌
+                                        ⚔️
                                     </button>
                                 </form>
                             </td>
@@ -74,7 +81,7 @@
                 </table>
             </div>
         </div>
-        <div class="kart-saidibara" id="saidibara-form">
+        <div class="kart-saidibara">
             <form method="POST" enctype="multipart/form-data" class="form-client" data-form>
                 {% csrf_token %}
                 <input type="hidden" name="id_client" id="id_client" data-id-field>

@@ -56,16 +56,14 @@
 }
 
 /* bouton supprimer */
-.btn-delete {
+.btn-delete, .btn-add, .btn-close {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 18px;
-    color: red;
     transition: 0.3s;
 }
 
-.btn-delete:hover {
+.btn-delete:hover, .btn-add:hover, .btn-close:hover {
     transform: scale(1.2);
-    color: darkred;
 }

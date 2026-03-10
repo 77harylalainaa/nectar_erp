@@ -91,3 +91,16 @@
 .kart-saidibara {
     scrollbar-gutter: stable;
 }
+
+.header-action {
+    display: flex;
+    gap: 8px;
+}
+
+#btn-close {
+    display: none;
+}
+
+.kotonera.form-open #btn-close {
+    display: inline-block;
+}
