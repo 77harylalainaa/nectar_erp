@@ -56,7 +56,7 @@
 }
 
 /* bouton supprimer */
-.btn-delete, .btn-add, .btn-close {
+.btn-delete, .btn-add, .btn-close, .btn-restore {
     background: none;
     border: none;
     cursor: pointer;
@@ -64,6 +64,6 @@
     transition: 0.3s;
 }
 
-.btn-delete:hover, .btn-add:hover, .btn-close:hover {
+.btn-delete:hover, .btn-add:hover, .btn-close:hover, .btn-restore:hover {
     transform: scale(1.2);
 }

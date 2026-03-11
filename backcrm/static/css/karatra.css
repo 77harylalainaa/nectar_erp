@@ -88,3 +88,9 @@ input, select, textarea {
 .ligne-produit.active {
     background-color: #eef3ff;
 }
+
+.empty-message {
+    text-align: center;
+    font-style: italic;
+    color: #94a3b8;
+}

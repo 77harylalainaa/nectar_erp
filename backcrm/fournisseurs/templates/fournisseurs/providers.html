@@ -4,21 +4,16 @@
 
 {% block content %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/karts.css' %}">
-<link rel="stylesheet" href="{% static 'css/karatra.css' %}">
-<link rel="stylesheet" href="{% static 'css/btn.css' %}">
-
 <div id="fournisseurs" class="tab-content">
     <div class="kotonera">
         <div class="kart-hedera">
             <h1>FOURNISSEURS</h1>
             <div class="header-actions">
                 <button type="button" id="btn-add" class="btn-add">
-                    <span>📋</span>
+                    <span>🧾</span>
                 </button>
                 <button type="button" id="btn-close" class="btn-close">
-                    ⭕
+                    ❌
                 </button>
             </div>
         </div>
@@ -27,6 +22,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Réf</th>
                             <th>Nom</th>
                             <th>Entreprise</th>
@@ -54,6 +50,13 @@
                             data-moyen_de_paiement="{{ fournisseur.moyen_de_paiement }}"
                             data-activite_fournisseur="{{ fournisseur.activite_fournisseur }}">
 
+                            <td class="activite">
+                                {% if fournisseur.activite_fournisseur == "actif" %}
+                                    <span class="dot dot-actif"></span>
+                                {% elif fournisseur.activite_fournisseur == "inactif" %}
+                                    <span class="dot dot-inactif"></span>
+                                {% endif %}
+                            </td>
                             <td>{{ fournisseur.ref_fournisseur }}</td>
                             <td>{{ fournisseur.nom_fournisseur }}</td>
                             <td>{{ fournisseur.nom_entreprise }}</td>

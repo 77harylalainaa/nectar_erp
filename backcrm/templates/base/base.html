@@ -6,6 +6,10 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/karts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/karatra.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dot.css' %}">
+    <link rel="stylesheet" href="{% static 'css/btn.css' %}">
 </head>
 <body>
     <div class="container">
@@ -24,7 +28,7 @@
                 <li><a href="#">VENTES</a></li>
                 <li><a href="{% url 'liste_clients' %}">CLIENTS</a></li>
                 <li><a href="{% url 'list_providers' %}">FOURNISSEURS</a></li>
-                <li><a href="#">ARCHIVES</a></li>
+                <li><a href="{% url 'the_archives' %}">ARCHIVES</a></li>
             </ul>
         </nav>
 

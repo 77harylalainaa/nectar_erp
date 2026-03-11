@@ -1,0 +1,61 @@
+{% extends "base/base.html" %}
+
+{% block title %}Archives{% endblock %}
+
+{% block content %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'archives/css/badges.css' %}">
+
+<div id="clients" class="tab-content">
+    <div class="kotonera">
+        <div class="kart-hedera">
+            <h1>LES ARCHIVES</h1>
+            <div class="header-actions">
+                <button type="button" id="btn-add" class="btn-add">
+                    <span>🧾</span>
+                </button>
+                <button type="button" id="btn-close" class="btn-close">
+                    ❌
+                </button>
+            </div>
+        </div>
+        <div class="kart-kontenty">
+            <div class="karatra">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>TYPE</th>
+                            <th>REFERENCE</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in archives %}
+                        <tr>
+                            <td><span class="badge badge-{{ item.type|lower }}"></span></td>
+                            <td>{{ item.type }}</td>
+                            <td>{{ item.reference }}</td>
+                            <td>
+                                <button class="btn-restore">
+                                    ♻️
+                                </button>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">Aucune archive</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="kart-saidibara">
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

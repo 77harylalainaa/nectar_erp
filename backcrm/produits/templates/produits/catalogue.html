@@ -4,21 +4,16 @@
 
 {% block content %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/karts.css' %}">
-<link rel="stylesheet" href="{% static 'css/karatra.css' %}">
-<link rel="stylesheet" href="{% static 'css/btn.css' %}">
-
 <div id="produits" class="tab-content">
     <div class="kotonera">
         <div class="kart-hedera">
             <h1>CATALOGUE DES PRODUITS</h1>
             <div class="header-actions">
                 <button type="button" id="btn-add" class="btn-add">
-                    <span>📋</span>
+                    <span>🧾</span>
                 </button>
                 <button type="button" id="btn-close" class="btn-close">
-                    ⭕
+                    ❌
                 </button>
             </div>
         </div>
@@ -27,6 +22,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Réf</th>
                             <th>Nom</th>
                             <th>Marque</th>
@@ -53,6 +49,13 @@
                             data-format="{{ produit.format }}"
                             data-image_produit="{{ produit.image_produit }}">
 
+                            <th class="activite">
+                                {% if produit.statut == "disponible" %}
+                                    <span class="dot dot-actif"></span>
+                                {% elif produit.statut == "non_disponible" %}
+                                    <span class="dot dot-inactif"></span>
+                                {% endif %}
+                            </th>
                             <td>{{ produit.reference }}</td>
                             <td>{{ produit.nom_produit }}</td>
                             <td>{{ produit.marque }}</td>

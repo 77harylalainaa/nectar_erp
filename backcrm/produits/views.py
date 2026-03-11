@@ -28,7 +28,7 @@ def archiver_produit(request, pk):
         produit = get_object_or_404(Produit, pk=pk)
         produit.statut = 'archivé'
         produit.save()
-    return redirect('catalogue_produit')
+    return redirect('catalogue_produits')
 def supprimer_produit(request, pk):
     if request.method == "POST":
         produit = get_object_or_404(Produit, pk=pk)

@@ -4,11 +4,6 @@
 
 {% block content %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/karts.css' %}">
-<link rel="stylesheet" href="{% static 'css/karatra.css' %}">
-<link rel="stylesheet" href="{% static 'css/btn.css' %}">
-
 <div id="clients" class="tab-content">
     <div class="kotonera">
         <div class="kart-hedera">
@@ -27,6 +22,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Ref</th>
                             <th>Genre</th>
                             <th>Nom</th>
@@ -52,6 +48,13 @@
                             data-ville_client="{{ client.ville_client }}"
                             data-date_inscription="{{ client.date_inscription }}">
 
+                            <td class="activite">
+                                {% if client.etat_client == "actif" %}
+                                    <span class="dot dot-actif"></span>
+                                {% elif client.etat_client == "inactif" %}
+                                    <span class="dot dot-inactif"></span>
+                                {% endif %}
+                            </td>
                             <td>{{ client.ref_client }}</td>
                             <td>{{ client.genre_client }}</td>
                             <td>{{ client.nom_client }}</td>
@@ -74,7 +77,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="8">Aucun client enregistré</td>
+                            <td colspan="9" class="empty-message">Aucun client enregistré</td>
                         </tr>
                         {% endfor %}
                     </tbody>
