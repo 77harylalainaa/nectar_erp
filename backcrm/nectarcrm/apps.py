@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class FournisseursConfig(AppConfig):
+class NectarcrmConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'fournisseurs'
+    name = 'nectarcrm'

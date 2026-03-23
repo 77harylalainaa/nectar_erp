@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from produits.models import Produit
-from clients.models import Client
-from fournisseurs.models import Fournisseur
+from nectarcrm.models import Client, Fournisseur
 
 def dashboard_home(request):
     produits = Produit.objects.count()

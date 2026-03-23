@@ -38,7 +38,9 @@
                             <td>{{ item.type }}</td>
                             <td>{{ item.reference }}</td>
                             <td>
-                                <button class="btn-restore">
+                                <button class="btn-restore"
+                                        data-id="{{ item.id }}"
+                                        data-type="{{ item.type|lower }}">
                                     ♻️
                                 </button>
                             </td>

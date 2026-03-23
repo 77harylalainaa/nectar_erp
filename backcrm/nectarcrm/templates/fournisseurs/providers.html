@@ -35,7 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for fournisseur in fournisseurs %}
+                        {% for fournisseur in nectarcrm %}
                         <tr data-ligne
                             data-id="{{ fournisseur.id_fournisseur }}"
                             data-ref_fournisseur="{{ fournisseur.ref_fournisseur }}"
@@ -80,7 +80,7 @@
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="9">Aucun fournisseur enregistré</td>
+                            <td colspan="9" class="empty-message">Aucun fournisseur enregistré</td>
                         </tr>
                         {% endfor %}
                     </tbody>
