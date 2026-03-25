@@ -1,0 +1,175 @@
+{% extends "base/base.html" %}
+
+{% block title %}Produits{% endblock %}
+
+{% block content %}
+
+<div id="produits" class="tab-content">
+    <div class="kotonera">
+        <div class="kart-hedera">
+            <h1>CATALOGUE DES PRODUITS</h1>
+            <div class="header-actions">
+                <button type="button" id="btn-add" class="btn-add">
+                    <span>🧾</span>
+                </button>
+                <button type="button" id="btn-close" class="btn-close">
+                    ❌
+                </button>
+            </div>
+        </div>
+        <div class="kart-kontenty">
+            <div class="karatra">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Réf</th>
+                            <th>Nom</th>
+                            <th>Marque</th>
+                            <th>Catégorie</th>
+                            <th>Prix de vente</th>
+                            <th>Remise</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for produit in inventaire %}
+                        <tr data-ligne
+                            data-id="{{ produit.id_produit }}"
+                            data-reference="{{ produit.reference }}"
+                            data-nom_produit="{{ produit.nom_produit }}"
+                            data-marque="{{ produit.marque }}"
+                            data-categorie="{{ produit.categorie }}"
+                            data-prix_de_vente="{{ produit.prix_de_vente }}"
+                            data-remise_possible="{{ produit.remise_possible }}"
+                            data-description="{{ produit.description }}"
+                            data-fournisseur="{{ produit.fournisseur }}"
+                            data-prix_d_achat="{{ produit.prix_d_achat }}"
+                            data-statut="{{ produit.statut }}"
+                            data-format="{{ produit.format }}"
+                            data-image_produit="{{ produit.image_produit }}">
+
+                            <th class="activite">
+                                {% if produit.statut == "disponible" %}
+                                    <span class="dot dot-actif"></span>
+                                {% elif produit.statut == "non_disponible" %}
+                                    <span class="dot dot-inactif"></span>
+                                {% endif %}
+                            </th>
+                            <td>{{ produit.reference }}</td>
+                            <td>{{ produit.nom_produit }}</td>
+                            <td>{{ produit.marque }}</td>
+                            <td>{{ produit.categorie }}</td>
+                            <td>{{ produit.prix_de_vente }}</td>
+                            <td>{{ produit.remise_possible }}</td>
+                            <td>
+                                <form method="POST"
+                                      action="{% url 'archiver_produit' produit.id_produit %}"
+                                      style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                            class="btn-delete"
+                                            onclick="return confirm('Archiver ce produit ?')">
+                                        ⚔️
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="empty-message">Aucun produit enregistré</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="kart-saidibara">
+            <form method="POST" enctype="multipart/form-data" class="form-produit" data-form>
+                {% csrf_token %}
+                <input type="hidden" name="id_produit" id="id_produit" data-id-field>
+                <div class="form-group">
+                    {{ form.reference.label_tag }}
+                    {{ form.reference }}
+                </div>
+                <div class="form-group">
+                    {{ form.nom_produit.label_tag }}
+                    {{ form.nom_produit }}
+                </div>
+                <div class="form-group">
+                    {{ form.categorie.label_tag }}
+                    <div style="display:flex; gap:5px;">
+                        {{ form.categorie }}
+                        <button type="button" id="open-categorie" class="btn-add">
+                            +
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form.marque.label_tag }}
+                    {{ form.marque }}
+                </div>
+                <div class="form-group">
+                    {{ form.format.label_tag }}
+                    {{ form.format }}
+                </div>
+                <div class="form-group">
+                    {{ form.fournisseur.label_tag }}
+                    {{ form.fournisseur }}
+                </div>
+                <div class="form-group">
+                    {{ form.prix_d_achat.label_tag }}
+                    {{ form.prix_d_achat }}
+                </div>
+                <div class="form-group">
+                    {{ form.prix_de_vente.label_tag }}
+                    {{ form.prix_de_vente }}
+                </div>
+                <div class="form-group">
+                    {{ form.remise_possible.label_tag }}
+                    {{ form.remise_possible }}
+                </div>
+                <div class="form-group">
+                    {{ form.statut.label_tag }}
+                    {{ form.statut }}
+                </div>
+                <div class="form-group">
+                    {{ form.image_produit.label_tag }}
+                    {{ form.image_produit }}
+                </div>
+                <div class="form-group">
+                    {{ form.description.label_tag }}
+                    {{ form.description }}
+                </div>
+                <div class="btn-divisera">
+                    <button type="reset" class="btn-boot">
+                        <span class="icon"> Boot </span>
+                    </button>
+                    <button type="submit" class="btn-ajouter" id="submit-btn">
+                        <span class="icon"> Ajouter </span>
+                    </button>
+                </div>
+                {{ form.non_field_errors }}
+            </form>
+            <div id="popup-categorie" style="display:none; background:#00000088; position:fixed; top:0; left:0; width:100%; height:100%;">
+                <div style="background:white; padding:20px; width:300px; margin:100px auto;">
+                    <h3>Nouvelle catégorie</h3>
+
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ categorie_form.nom.label_tag }}
+                        {{ categorie_form.nom }}
+
+                        {{ categorie_form.parent.label_tag }}
+                        {{ categorie_form.parent }}
+
+                        <button type="submit">Ajouter</button>
+                        <button type="button" id="close-popup">Annuler</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

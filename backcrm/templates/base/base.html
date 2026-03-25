@@ -23,7 +23,7 @@
             <ul>
                 <li><a href="{% url 'dashboard_home' %}">TABLEAU DE BORD</a></li>
                 <li><a href="{% url 'catalogue_produits' %}">PRODUITS</a></li>
-                <li><a href="#">STOCKS</a></li>
+                <li><a href="{% url 'log_stocks' %}">STOCKS</a></li>
                 <li><a href="#">ACHATS</a></li>
                 <li><a href="#">VENTES</a></li>
                 <li><a href="{% url 'liste_clients' %}">CLIENTS</a></li>
@@ -48,6 +48,7 @@
             </section>
             <script src="{% static 'js/table_form_manager.js' %}" defer></script>
             <script src="{% static 'js/restore.js' %}" defer></script>
+            <script src="{% static 'js/catpopup.js' %}" defer></script>
         </main>
     </div>
 </body>

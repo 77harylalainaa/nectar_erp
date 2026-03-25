@@ -29,42 +29,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* clic ligne tableau */
 
-    if (!lignes || lignes.length === 0) return;
-    lignes.forEach(function(ligne){
-        ligne.addEventListener("click", function () {
-            const data = this.dataset;
-            /* ouvrir formulaire */
-            container.classList.add("form-open");
-            /* surbrillance ligne */
-            lignes.forEach(function(l){
-                l.classList.remove("active");
-            });
-            this.classList.add("active");
+    if (lignes && lignes.length > 0) {
+        lignes.forEach(function(ligne){
+            ligne.addEventListener("click", function () {
+                const data = this.dataset;
 
-            /* id */
+                container.classList.add("form-open");
 
-            if (idInput && data.id){
-                idInput.value = data.id;
-            }
-            /* remplir formulaire */
+                lignes.forEach(function(l){
+                    l.classList.remove("active");
+                });
+                this.classList.add("active");
 
-            Object.keys(data).forEach(function(key){
-                const field = document.getElementById("id_" + key);
-                if (field){
-                    if(field.type === "file"){
-                        return;
+                if (idInput && data.id){
+                    idInput.value = data.id;
+                }
+
+                Object.keys(data).forEach(function(key){
+                    const field = document.getElementById("id_" + key);
+                    if (field){
+                        if(field.type === "file") return;
+                        field.value = data[key];
                     }
-                    field.value = data[key];
+                });
+
+                if (submitBtn){
+                    submitBtn.innerHTML = "<span class='icon'> Modifier </span>";
                 }
             });
-
-            /* bouton modifier */
-
-            if (submitBtn){
-                submitBtn.innerHTML = "<span class='icon'> Modifier </span>";
-            }
         });
-    });
+    }
 
     /* reset */
 
@@ -102,3 +96,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+console.log("JS OK");

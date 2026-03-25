@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from produits.models import Produit
+from inventaire.models import Produit
 from nectarcrm.models import Client, Fournisseur
 
 def dashboard_home(request):
@@ -7,7 +7,7 @@ def dashboard_home(request):
     clients = Client.objects.count()
     fournisseurs = Fournisseur.objects.count()
     return render(request, 'dashboard/dashboard.html', {
-        'produits': produits,
-        'clients': clients,
+        'inventaire': produits,
+        'nectarcrm': clients,
         'fournisseurs': fournisseurs,
     })

@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('ref_fournisseur', models.CharField(blank=True, max_length=10, unique=True)),
                 ('nom_fournisseur', models.CharField(max_length=100)),
                 ('nom_entreprise', models.CharField(blank=True, max_length=100)),
-                ('type_fournisseur', models.CharField(choices=[('matières premières', 'Matières Premières'), ('produits finis', 'Produits Finis'), ('services', 'Services'), ('équipements', 'Equipements'), ('technologies', 'Technologies')], default='matières premières', max_length=20)),
+                ('type_fournisseur', models.CharField(choices=[('matières premières', 'Matières Premières'), ('inventaire finis', 'Produits Finis'), ('services', 'Services'), ('équipements', 'Equipements'), ('technologies', 'Technologies')], default='matières premières', max_length=20)),
                 ('email_fournisseur', models.EmailField(blank=True, max_length=254, null=True, unique=True)),
                 ('telephone_fournisseur', models.CharField(max_length=15)),
                 ('adresse_fournisseur', models.CharField(max_length=150)),

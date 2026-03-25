@@ -37,31 +37,32 @@
                         {% for  client in nectarcrm %}
                         <tr data-ligne
                             data-id="{{ client.id_client }}"
-                            data-ref_client="{{ client.ref_client }}"
-                            data-nom_client="{{ client.nom_client }}"
+                            data-ref="{{ client.ref }}"
+                            data-nom="{{ client.nom }}"
                             data-prenom_client="{{ client.prenom_client }}"
                             data-date_naissance_client="{{ client.date_naissance_client|date:'Y-m-d' }}"
                             data-genre_client="{{ client.genre_client }}"
-                            data-email_client="{{ client.email_client }}"
-                            data-telephone_client="{{ client.telephone_client }}"
-                            data-adresse_client="{{ client.adresse_client }}"
-                            data-ville_client="{{ client.ville_client }}"
-                            data-date_inscription="{{ client.date_inscription }}">
+                            data-email="{{ client.email }}"
+                            data-telephone="{{ client.telephone }}"
+                            data-adresse="{{ client.adresse }}"
+                            data-ville="{{ client.ville }}"
+                            data-date_creation="{{ client.date_creation }}"
+                            data-statut="{{ client.statut }}">
 
                             <td class="activite">
-                                {% if client.etat_client == "actif" %}
+                                {% if client.statut == "actif" %}
                                     <span class="dot dot-actif"></span>
-                                {% elif client.etat_client == "inactif" %}
+                                {% elif client.statut == "inactif" %}
                                     <span class="dot dot-inactif"></span>
                                 {% endif %}
                             </td>
-                            <td>{{ client.ref_client }}</td>
+                            <td>{{ client.ref }}</td>
                             <td>{{ client.genre_client }}</td>
-                            <td>{{ client.nom_client }}</td>
+                            <td>{{ client.nom }}</td>
                             <td>{{ client.prenom_client }}</td>
-                            <td>{{ client.email_client }}</td>
-                            <td>{{ client.telephone_client }}</td>
-                            <td>{{ client.ville_client }}</td>
+                            <td>{{ client.email }}</td>
+                            <td>{{ client.telephone }}</td>
+                            <td>{{ client.ville }}</td>
                             <td>
                                 <form method="POST"
                                       action="{% url 'archiver_client' client.id_client %}"
@@ -89,12 +90,8 @@
                 {% csrf_token %}
                 <input type="hidden" name="id_client" id="id_client" data-id-field>
                 <div class="form-group">
-                    {{ form.ref_client.label_tag }}
-                    {{ form.ref_client }}
-                </div>
-                <div class="form-group">
-                    {{ form.nom_client.label_tag }}
-                    {{ form.nom_client }}
+                    {{ form.nom.label_tag }}
+                    {{ form.nom }}
                 </div>
                 <div class="form-group">
                     {{ form.prenom_client.label_tag }}
@@ -109,28 +106,20 @@
                     {{ form.genre_client }}
                 </div>
                 <div class="form-group">
-                    {{ form.email_client.label_tag }}
-                    {{ form.email_client }}
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
                 </div>
                 <div class="form-group">
-                    {{ form.telephone_client.label_tag }}
-                    {{ form.telephone_client }}
+                    {{ form.telephone.label_tag }}
+                    {{ form.telephone }}
                 </div>
                 <div class="form-group">
-                    {{ form.adresse_client.label_tag }}
-                    {{ form.adresse_client }}
+                    {{ form.adresse.label_tag }}
+                    {{ form.adresse }}
                 </div>
                 <div class="form-group">
-                    {{ form.ville_client.label_tag }}
-                    {{ form.ville_client }}
-                </div>
-                <div class="form-group">
-                    {{ form.statut.label_tag }}
-                    {{ form.statut }}
-                </div>
-                <div class="form-group">
-                    {{ form.etat_client.label_tag }}
-                    {{ form.etat_client }}
+                    {{ form.ville.label_tag }}
+                    {{ form.ville }}
                 </div>
                 <div class="btn-divisera">
                     <button type="reset" class="btn-boot">

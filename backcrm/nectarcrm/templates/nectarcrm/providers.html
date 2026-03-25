@@ -23,7 +23,7 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Réf</th>
+                            <th>Ref</th>
                             <th>Nom</th>
                             <th>Entreprise</th>
                             <th>Type</th>
@@ -38,32 +38,32 @@
                         {% for fournisseur in nectarcrm %}
                         <tr data-ligne
                             data-id="{{ fournisseur.id_fournisseur }}"
-                            data-ref_fournisseur="{{ fournisseur.ref_fournisseur }}"
-                            data-nom_fournisseur="{{ fournisseur.nom_fournisseur }}"
+                            data-ref="{{ fournisseur.ref }}"
+                            data-nom="{{ fournisseur.nom }}"
                             data-nom_entreprise="{{ fournisseur.nom_entreprise }}"
                             data-type_fournisseur="{{ fournisseur.type_fournisseur }}"
-                            data-email_fournisseur="{{ fournisseur.email_fournisseur }}"
-                            data-telephone_fournisseur="{{ fournisseur.telephone_fournisseur }}"
-                            data-adresse_fournisseur="{{ fournisseur.adresse_fournisseur }}"
-                            data-ville_fournisseur="{{ fournisseur.ville_fournisseur }}"
-                            data-date_ajout="{{ fournisseur.date_ajout }}"
+                            data-email="{{ fournisseur.email }}"
+                            data-telephone="{{ fournisseur.telephone }}"
+                            data-adresse="{{ fournisseur.adresse }}"
+                            data-ville="{{ fournisseur.ville }}"
+                            data-date_creation="{{ fournisseur.date_creation }}"
                             data-moyen_de_paiement="{{ fournisseur.moyen_de_paiement }}"
-                            data-activite_fournisseur="{{ fournisseur.activite_fournisseur }}">
+                            data-statut="{{ fournisseur.statut }}">
 
                             <td class="activite">
-                                {% if fournisseur.activite_fournisseur == "actif" %}
+                                {% if fournisseur.statut == "actif" %}
                                     <span class="dot dot-actif"></span>
-                                {% elif fournisseur.activite_fournisseur == "inactif" %}
+                                {% elif fournisseur.statut == "inactif" %}
                                     <span class="dot dot-inactif"></span>
                                 {% endif %}
                             </td>
-                            <td>{{ fournisseur.ref_fournisseur }}</td>
-                            <td>{{ fournisseur.nom_fournisseur }}</td>
+                            <td>{{ fournisseur.ref }}</td>
+                            <td>{{ fournisseur.nom }}</td>
                             <td>{{ fournisseur.nom_entreprise }}</td>
                             <td>{{ fournisseur.type_fournisseur }}</td>
-                            <td>{{ fournisseur.email_fournisseur }}</td>
-                            <td>{{ fournisseur.telephone_fournisseur }}</td>
-                            <td>{{ fournisseur.adresse_fournisseur }}</td>
+                            <td>{{ fournisseur.email }}</td>
+                            <td>{{ fournisseur.telephone }}</td>
+                            <td>{{ fournisseur.adresse }}</td>
                             <td>{{ fournisseur.moyen_de_paiement }}</td>
                             <td>
                                 <form method="POST"
@@ -92,12 +92,8 @@
                 {% csrf_token %}
                 <input type="hidden" name="id_fournisseur" id="id_fournisseur" data-id-field>
                 <div class="form-group">
-                    {{ form.ref_fournisseur.label_tag }}
-                    {{ form.ref_fournisseur }}
-                </div>
-                <div class="form-group">
-                    {{ form.nom_fournisseur.label_tag }}
-                    {{ form.nom_fournisseur }}
+                    {{ form.nom.label_tag }}
+                    {{ form.nom }}
                 </div>
                 <div class="form-group">
                     {{ form.nom_entreprise.label_tag }}
@@ -108,28 +104,24 @@
                     {{ form.type_fournisseur }}
                 </div>
                 <div class="form-group">
-                    {{ form.email_fournisseur.label_tag }}
-                    {{ form.email_fournisseur }}
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
                 </div>
                 <div class="form-group">
-                    {{ form.telephone_fournisseur.label_tag }}
-                    {{ form.telephone_fournisseur }}
+                    {{ form.telephone.label_tag }}
+                    {{ form.telephone }}
                 </div>
                 <div class="form-group">
-                    {{ form.adresse_fournisseur.label_tag }}
-                    {{ form.adresse_fournisseur }}
+                    {{ form.adresse.label_tag }}
+                    {{ form.adresse }}
                 </div>
                 <div class="form-group">
-                    {{ form.ville_fournisseur.label_tag }}
-                    {{ form.ville_fournisseur }}
+                    {{ form.ville.label_tag }}
+                    {{ form.ville }}
                 </div>
                 <div class="form-group">
                     {{ form.moyen_de_paiement.label_tag }}
                     {{ form.moyen_de_paiement }}
-                </div>
-                <div class="form-group">
-                    {{ form.activite_fournisseur.label_tag }}
-                      {{ form.activite_fournisseur }}
                 </div>
                 <div class="btn-divisera">
                     <button type="reset" class="btn-boot">

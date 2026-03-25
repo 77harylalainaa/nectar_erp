@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('statut', models.CharField(choices=[('disponible', 'Disponible'), ('non disponible', 'Non disponible')], default='disponible', max_length=20)),
                 ('format', models.CharField(help_text='Ex: 1L, 1/2L, ...', max_length=100)),
                 ('date_de_creation', models.DateTimeField(auto_now_add=True)),
-                ('image_produit', models.ImageField(blank=True, null=True, upload_to='produits/')),
+                ('image_produit', models.ImageField(blank=True, null=True, upload_to='inventaire/')),
             ],
             options={
                 'verbose_name': 'Produit',

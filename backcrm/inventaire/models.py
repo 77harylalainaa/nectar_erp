@@ -1,18 +1,21 @@
 from django.db import models
 
+class Categorie(models.Model):
+    nom = models.CharField(max_length=100)
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    def __str__(self):
+        return f"{self.parent} ({self.nom})"
 class Produit(models.Model):
     STATUT_CHOICES = [
         ('disponible', 'Disponible'),
-        ('non_disponible', 'Non disponible'),
-        ('archivé', 'Archivé'),
-    ]
-    CATEGORIE_CHOICES = [
-        ('rhum', 'Rhum'),
-        ('vin', 'Vin'),
-        ('spiritueux', 'Spiritueux'),
-        ('bière', 'Bière'),
-        ('boisson_gazeuse', 'Boisson gazeuse'),
-        ('jus_de_fruit', 'Jus de fruit')
+        ('non_disponible', 'Non Disponible'),
+        ('archive', 'Archive'),
     ]
     FORMAT_CHOICES = [
         ('25cl', '25cl'),
@@ -26,13 +29,14 @@ class Produit(models.Model):
     reference = models.CharField(max_length=100, unique=True)
     nom_produit = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
-    categorie = models.CharField(
-        max_length=20,
-        choices=CATEGORIE_CHOICES,
-        default='rhum'
-    )
+    categorie = models.ForeignKey(Categorie, on_delete=models.SET_NULL, null=True)
     marque = models.CharField(max_length=150)
-    fournisseur = models.CharField(max_length=150)
+    fournisseur = models.ForeignKey(
+        "nectarcrm.Fournisseur",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
     prix_d_achat= models.DecimalField(max_digits=10, decimal_places=2)
     prix_de_vente = models.DecimalField(max_digits=10, decimal_places=2)
     remise_possible = models.DecimalField(
@@ -54,7 +58,7 @@ class Produit(models.Model):
     )
     date_de_creation = models.DateTimeField(auto_now_add=True)
     image_produit = models.ImageField(
-        upload_to='produits/',
+        upload_to='inventaire/',
         blank=True,
         null=True,
     )
@@ -78,3 +82,30 @@ class Produit(models.Model):
         verbose_name = "Produit"
         verbose_name_plural = "Produits"
         ordering = ['-date_de_creation']
+
+class Stock(models.Model):
+    produit = models.OneToOneField(
+        Produit,
+        on_delete=models.CASCADE,
+        related_name="stock"
+    )
+    quantite = models.IntegerField(default=0)
+    dernier_maj = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.produit.nom_produit} - Stock: {self.quantite}"
+
+class MouvementStock(models.Model):
+    TYPE_CHOICES = [
+        ('entree', 'Entree'),
+        ('sortie', 'Sortie'),
+    ]
+
+    produit = models.ForeignKey(Produit, on_delete=models.CASCADE)
+    type_mouvement = models.CharField(max_length=10, choices=TYPE_CHOICES)
+    quantite = models.IntegerField()
+    date_mouv = models.DateTimeField(auto_now_add=True)
+    reference = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.type_mouvement} - {self.produit.nom_produit} ({self.quantite})"

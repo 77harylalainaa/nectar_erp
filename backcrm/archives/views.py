@@ -1,18 +1,17 @@
 import json
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
-from produits.models import Produit
+from inventaire.models import Produit
 from nectarcrm.models import Client, Fournisseur
 
 def the_archives(request):
     archives = []
 
-    clients = Client.objects.filter(etat_client="archivé")
+    clients = Client.objects.filter(statut="archive")
     for c in clients:
         archives.append({
             "type": "Client",
-            "reference": c.ref_client,
+            "reference": c.ref,
             "id": c.id_client
         })
 
@@ -24,11 +23,11 @@ def the_archives(request):
             "id": p.id_produit
         })
 
-    fournisseurs = Fournisseur.objects.filter(activite_fournisseur="archivé")
+    fournisseurs = Fournisseur.objects.filter(statut="archive")
     for f in fournisseurs:
         archives.append({
             "type": "Fournisseur",
-            "reference": f.ref_fournisseur,
+            "reference": f.ref,
             "id": f.id_fournisseur
         })
 
@@ -44,7 +43,7 @@ def restore_item(request):
         try:
             if item_type == "client":
                 obj = Client.objects.get(id_client=item_id)
-                obj.etat_client = "inactif"
+                obj.statut = "inactif"
 
             elif item_type == "produit":
                 obj = Produit.objects.get(id_produit=item_id)
@@ -52,7 +51,7 @@ def restore_item(request):
 
             elif item_type == "fournisseur":
                 obj = Fournisseur.objects.get(id_fournisseur=item_id)
-                obj.activite_fournisseur = "inactif"
+                obj.statut = "inactif"
 
             else:
                 return JsonResponse({"success": False, "error": "Type invalide"})

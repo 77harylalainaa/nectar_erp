@@ -3,7 +3,7 @@ from .models import Fournisseur, Client
 from .forms import FournisseurForm, ClientForm
 
 def liste_clients(request):
-    clients = Client.objects.exclude(etat_client='archivé')
+    clients = Client.objects.exclude(statut='archive')
     form = ClientForm()
     if request.method == 'POST':
         client_id = request.POST.get('id_client')
@@ -18,20 +18,20 @@ def liste_clients(request):
         else:
             print(form.errors)
 
-    return render(request, 'clients/clients.html', {
+    return render(request, 'nectarcrm/clients.html', {
         'form': form,
-        'clients': clients
+        'nectarcrm': clients
     })
 
 def archiver_client(request, pk):
     if request.method == "POST":
         client = get_object_or_404(Client, pk=pk)
-        client.etat_client = 'archivé'
+        client.statut = 'archive'
         client.save()
     return redirect('liste_clients')
 
 def list_providers(request):
-    fournisseurs = Fournisseur.objects.exclude(activite_fournisseur='archivé')
+    fournisseurs = Fournisseur.objects.exclude(statut='archive')
     form = FournisseurForm()
     if request.method == 'POST':
         fournisseur_id = request.POST.get('id_fournisseur')
@@ -46,13 +46,13 @@ def list_providers(request):
         else:
             print(form.errors)
 
-    return render(request, 'fournisseurs/providers.html', {
+    return render(request, 'nectarcrm/providers.html', {
         'form': form,
-        'fournisseurs': fournisseurs
+        'nectarcrm': fournisseurs
     })
 def archiver_fournisseur(request, pk):
     if request.method == "POST":
         fournisseur = get_object_or_404(Fournisseur, pk=pk)
-        fournisseur.activite_fournisseur = 'archivé'
+        fournisseur.statut = 'archive'
         fournisseur.save()
     return redirect('list_providers')
